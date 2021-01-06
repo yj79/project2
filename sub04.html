@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국립공주박물관</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <!-- 오른쪽 메뉴버튼 jq 시작-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            mobile_menu();
+        });
+
+        function mobile_menu() {
+            /* 변수 선언 */
+            var $menu = null;
+            var $left_gnb = null; // 영역 전체
+            var $depth1_wrap = null;
+            var $depth1 = null;
+            var $depth1_btn = null;
+
+            /* 시작 함수 */
+            function start() {
+                init();
+                init_event();
+            }
+            /* 변수 초기화 함수 */
+            function init() {
+                $menu = $('.m_menu');
+                $left_gnb = $('.left_gnbWrap'); // 영역 전체
+                $depth1_wrap = $('.left_gnb>li');
+                $depth1 = $depth1_wrap.children('ul');
+                $depth1_btn = $depth1_wrap.children('a');
+            }
+            /* 이벤트 함수 */
+            function init_event() {
+
+                /* 모바일 메뉴 버튼 클릭했을때 모바일 메뉴영역 나오게 하기 */
+                $menu.click(function(event) {
+                    event.preventDefault();
+                    $left_gnb.addClass('on');
+                });
+
+                /* x버튼 눌렀을때 모바일 메뉴 닫기 */
+                $('.close').click(function(event) {
+                    event.preventDefault();
+
+                    $left_gnb.removeClass('on');
+
+                    // x버튼 누르면 시간차 약간두고 소메뉴 닫히게 하기
+                    setTimeout(function() {
+                        $depth1_btn.removeClass('on');
+                        $depth1.slideUp();
+                    }, 300)
+                });
+
+                /* depth1의 각메뉴 클릭시 depth2 나오게 하기 */
+                $depth1_btn.click(function(event) {
+                    event.preventDefault();
+                    var $this = $(this);
+                    var $this_ul = $this.siblings('ul');
+
+                    var check = $this.hasClass('on');
+                    if (check) {
+                        $this.removeClass('on');
+                        $this_ul.stop(true, true).slideUp();
+                    } else {
+                        $depth1_btn.removeClass('on');
+                        $depth1.stop().slideUp();
+                        $this.addClass('on');
+                        $this_ul.stop(true, true).slideDown();
+                    }
+                });
+
+                /* 디바이스 크기 변경시 모바일 메뉴영역 숨기기 */
+                $(window).resize(function() {
+                    $left_gnb.removeClass('on');
+                });
+            }
+
+            start(); // 시작 호출
+        }
+
+    </script>
+    <!-- 오른쪽 메뉴버튼 jq끝-->
+</head>
+<body>
+    <div id="wrap">
+        <header id="header">
+            <div>
+                <div class="logo"><a href="index.html"><img src="img/logo.png" alt="로고"></a></div>
+                
+                <!--back up
+                <ul class="menu">
+                    <li><a href="sub01.html">관람정보</a>
+                        <ul class="submenu">
+                            <li><a href="sub01.html">이용안내</a></li>
+                            <li><a href="sub01.html">예약안내</a></li>
+                            <li><a href="sub01.html">학교단체해설</a></li>
+                            <li><a href="sub01.html">사전관람예약</a></li>
+                            <li><a href="sub01.html">박물관소개</a></li>
+                            <li><a href="sub01.html">오시는길</a></li>
+                            <li><a href="sub01.html">자주하는질문</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="sub01.html">전시</a>
+                        <ul class="submenu">
+                            <li><a href="sub01.html">상설전시</a></li>
+                            <li><a href="sub01.html">특별전시</a></li>
+                            <li><a href="sub01.html">옥외전시</a></li>
+                            <li><a href="sub01.html">VR체험관</a></li>
+                            <li><a href="sub01.html">동영상관람</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="sub01.html">교육/문화</a>
+                        <ul class="submenu">
+                            <li><a href="sub01.html">교육프로그램</a></li>
+                            <li><a href="sub01.html">문화행사</a></li>
+                            <li class="woongjin"><a href="sub01.html">웅진백제어린이체험실</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="sub01.html">유물/학술</a>
+                        <ul class="submenu">
+                            <li><a href="sub01.html">소장품</a></li>
+                            <li><a href="sub01.html">학술자료</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="http://www.emuseum.go.kr">e뮤지엄</a>
+                    </li>
+                    <li><a href="sub01.html">소식/참여</a>
+                        <ul class="submenu">
+                            <li><a href="sub01.html">새소식</a></li>
+                            <li><a href="sub01.html">보도자료</a></li>
+                            <li><a href="sub01.html">이달의행사</a></li>
+                            <li><a href="sub01.html">관람후기</a></li>
+                            <li><a href="sub01.html">문의/제안</a></li>
+                            <li><a href="sub01.html">웹소식지</a></li>
+                            <li><a href="sub01.html">사이버민원</a></li>
+                            <li><a href="sub01.html">봉사활동신청</a></li>
+                            <li><a href="sub01.html">박물관SNS</a></li>
+                            <li><a href="sub01.html">홍보영상</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="sub01.html">박물관후원회</a>
+                        <ul class="submenu">
+                            <li><a href="sub01.html">박물관후원회안내</a></li>
+                            <li><a href="sub01.html">새소식</a></li>
+                            <li><a href="sub01.html">활동앨범</a></li>
+                        </ul>
+                    </li>
+                     :after으로 clear:both 
+                </ul>
+                -->
+                 <!-- 새로적용한 네비1 여기서부터 -->
+                    <div>
+                        <ul class="menu">
+                            <li><a href="sub01.html">관람정보</a>
+                                <ul class="submenu">
+                                    <li><a href="sub01.html">이용안내</a></li>
+                                    <li><a href="sub01.html">예약안내</a></li>
+                                    <li><a href="sub01.html">학교단체해설</a></li>
+                                    <li><a href="sub01.html">사전관람예약</a></li>
+                                    <li><a href="sub01.html">박물관소개</a></li>
+                                    <li><a href="sub01.html">오시는길</a></li>
+                                    <li><a href="sub01.html">자주하는질문</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="sub02.html">전시</a>
+                                <ul class="submenu">
+                                    <li><a href="sub02.html">상설전시</a></li>
+                                    <li><a href="sub02.html">특별전시</a></li>
+                                    <li><a href="sub02.html">옥외전시</a></li>
+                                    <li><a href="sub02.html">VR체험관</a></li>
+                                    <li><a href="sub02.html">동영상관람</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="sub03.html">교육/문화</a>
+                                <ul class="submenu">
+                                    <li><a href="sub03.html">교육프로그램</a></li>
+                                    <li><a href="sub03.html">문화행사</a></li>
+                                    <li class="woongjin"><a href="sub03.html">웅진백제어린이체험실</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="sub04.html">유물/학술</a>
+                                <ul class="submenu">
+                                    <li><a href="sub04.html">소장품</a></li>
+                                    <li><a href="sub04.html">학술자료</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="http://www.emuseum.go.kr">e뮤지엄</a>
+                            </li>
+                            <li><a href="sub05.html">소식/참여</a>
+                                <ul class="submenu">
+                                    <li><a href="sub05.html">새소식</a></li>
+                                    <li><a href="sub05.html">보도자료</a></li>
+                                    <li><a href="sub05.html">이달의행사</a></li>
+                                    <li><a href="sub05.html">관람후기</a></li>
+                                    <li><a href="sub05.html">문의/제안</a></li>
+                                    <li><a href="sub05.html">웹소식지</a></li>
+                                    <li><a href="sub05.html">사이버민원</a></li>
+                                    <li><a href="sub05.html">봉사활동신청</a></li>
+                                    <li><a href="sub05.html">박물관SNS</a></li>
+                                    <li><a href="sub05.html">홍보영상</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="sub06.html">박물관후원회</a>
+                                <ul class="submenu">
+                                    <li><a href="sub06.html">박물관후원회안내</a></li>
+                                    <li><a href="sub06.html">새소식</a></li>
+                                    <li><a href="sub06.html">활동앨범</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 새로적용한 네비1 끝 -->
+                
+                <ul class="util">
+                    <li><a href="https://gongju.museum.go.kr/eng">ENG</a></li>
+                    <li><a href="index.html">한국어</a></li>
+                    <li class="m_menu">
+                        <div><a href="#"><img src="img/ico_menu.png" alt="메뉴버튼"></a></div>
+                    </li>
+                    <nav class="left_gnbWrap">
+                        <a href="#" class="close"><img src="img/btn_fixClose.png" alt="close"></a>
+                        <ul class="left_gnb">
+                            <li>
+                                <a href="#">관람정보</a>
+                                <ul>
+                                    <li><a href="sub01.html">이용안내</a></li>
+                                    <li><a href="sub01.html">예약안내</a></li>
+                                    <li><a href="sub01.html">학교단체해설</a></li>
+                                    <li><a href="sub01.html">사전관람예약</a></li>
+                                    <li><a href="sub01.html">박물관소개</a></li>
+                                    <li><a href="sub01.html">오시는길</a></li>
+                                    <li><a href="sub01.html">자주하는질문</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">전시</a>
+                                <ul>
+                                    <li><a href="sub02.html">상설전시</a></li>
+                                    <li><a href="sub02.html">특별전시</a></li>
+                                    <li><a href="sub02.html">옥외전시</a></li>
+                                    <li><a href="sub02.html">VR체험관</a></li>
+                                    <li><a href="sub02.html">동영상관람</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">교육/문화</a>
+                                <ul>
+                                    <li><a href="sub03.html">교육프로그램</a></li>
+                                    <li><a href="sub03.html">문화행사</a></li>
+                                    <li class="woongjin"><a href="sub03.html">웅진백제어린이체험실</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">유물/학술</a>
+                                <ul>
+                                    <li><a href="sub04.html">소장품</a></li>
+                                    <li><a href="sub04.html">학술자료</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="http://www.emuseum.go.kr">e뮤지엄</a>
+                            </li>
+                            <li>
+                                <a href="#">소식/참여</a>
+                                <ul>
+                                    <li><a href="sub05.html">새소식</a></li>
+                                    <li><a href="sub05.html">보도자료</a></li>
+                                    <li><a href="sub05.html">이달의행사</a></li>
+                                    <li><a href="sub05.html">관람후기</a></li>
+                                    <li><a href="sub05.html">문의/제안</a></li>
+                                    <li><a href="sub05.html">웹소식지</a></li>
+                                    <li><a href="sub05.html">사이버민원</a></li>
+                                    <li><a href="sub05.html">봉사활동신청</a></li>
+                                    <li><a href="sub05.html">박물관SNS</a></li>
+                                    <li><a href="sub05.html">홍보영상</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">박물관후원회</a>
+                                <ul>
+                                    <li><a href="sub06.html">박물관후원회안내</a></li>
+                                    <li><a href="sub06.html">새소식</a></li>
+                                    <li><a href="sub06.html">활동앨범</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- :after으로 clear:both -->
+                </ul>
+                <!-- :after으로 clear:both -->
+            </div>
+        </header>
+        <article id="subimg04">
+            <h1 class="hidden">서브이미지</h1>
+        </article>
+        <main id="sub1-contents">
+            <section class="sub_site">
+                <div>
+                    <ul class="site">
+                        <li>
+                            <a href="index.html"><img src="img/ico_home.png" alt="홈"></a>
+                        </li>
+                        <li>
+                            <select>
+                                <option>&nbsp;&nbsp;유물/학술</option>
+                                <option>&nbsp;&nbsp;관람정보</option>
+                                <option>&nbsp;&nbsp;전시</option>
+                                <option>&nbsp;&nbsp;교육/문화</option>
+                                <option>&nbsp;&nbsp;유물/학술</option>
+                                <option>&nbsp;&nbsp;e뮤지엄</option>
+                                <option>&nbsp;&nbsp;소식/참여</option>
+                                <option>&nbsp;&nbsp;박물관후원회</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select>
+                                <option>&nbsp;&nbsp;소장품</option>
+                                <option>&nbsp;&nbsp;학술자료</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="sub_title04">
+                <h2 class="sub_tit04">소장품</h2>
+            </section>
+            <section class="time">
+                <div>
+                    <h4 class="subTitle"><i><img src="img/ico_title.png" alt="제목"></i> 관람시간</h4>
+                    <dl class="data_box">
+                        <dt>구분</dt>
+                        <dd>
+                            <ul class="time_data">
+                                <li>1월 - 3월 / 11월 - 12월</li>
+                                <li>4월 - 10월중 토요일</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl class="data_box">
+                        <dt>관람시간</dt>
+                        <dd>
+                            <ul class="time_data">
+                                <li>10:00 - 18:00<span>(주말, 공휴일관람시간 동일)</span></li>
+                                <li>10:00 - 18:00<span>(코로나 19로 야간개장 없음)</span></li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl class="data_box">
+                        <dt>휴관일 및 휴실일</dt>
+                        <dd>매주 월요일, 1월 1일, 설날(1.25), 추석(10.1)</dd>
+                    </dl>
+                    <dl class="data_box">
+                        <dt>문화가 있는날</dt>
+                        <dd>4월~ 10월 : 10:00 ~21:00 / 11월~ 3월 : 10:00 ~19:00 <span>(코로나 19로 현재 시행하지 않음)</span></dd>
+                    </dl>
+                    <dl class="data_box">
+                        <dt>관람료</dt>
+                        <dd>무료</dd>
+                    </dl>
+                    <dl class="data_box">
+                        <dt>대체휴관일</dt>
+                        <dd>8.17.(월) / 8.18.(화)</dd>
+                    </dl>
+                </div>
+            </section>
+            <section class="service">
+                <div>
+                    <h4 class="subTitle"><i><img src="img/ico_title.png" alt="제목"></i> 전시실 안내서비스</h4>
+                    <dl class="data_box">
+                        <dt>구분</dt>
+                        <dd>
+                            <ul class="service_data">
+                                <li>1회차</li>
+                                <li>2회차</li>
+                                <li>3회차</li>
+                                <li>4회차</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl class="data_box">
+                        <dt>전시해설 시간</dt>
+                        <dd>
+                            <ul class="service_data">
+                                <li>10:00</li>
+                                <li>11:00</li>
+                                <li>14:00</li>
+                                <li>15:00</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <ul class="service_text">
+                        <li><i><img src="img/ico_list.png" alt="리스트"></i> 전문자원봉사자, 박물관 직원으로부터 전시유물 설명을 들으실 수 있습니다.</li>
+                        <li><i><img src="img/ico_list.png" alt="리스트"></i> 전시실 안내서비스 가능 인원은 30명 이하입니다.</li>
+                        <li><i><img src="img/ico_list.png" alt="리스트"></i> 박물관을 방문하셨을 때, 지정된 시간에 전시해설을 들으실 수 있습니다.</li>
+                        <li><i><img src="img/ico_list.png" alt="리스트"></i> 단체 안내를 원하시면 방문 일주일 전 미리 예약하시기 바랍니다. <span>(예약문의:041-850-6301)</span></li>
+                    </ul>
+                </div>
+            </section>
+            <section class="mobile_serv">
+                <div>
+                    <h4 class="subTitle2"><i><img src="img/ico_title.png" alt="제목"></i> 모바일 전시안내 서비스<span>(이어폰 지참)</span></h4>
+                    <div class="mobileGuide">
+                        <div><img src="img/mobileimg.jpg" alt="모바일"></div>
+                        <div><img src="img/appimg.jpg" alt="앱"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="caution">
+                <div>
+                    <h4 class="subTitle2"><i><img src="img/ico_title.png" alt="제목"></i> 관람 시 주의사항</h4>
+                    <div class="caution_imgSet">
+                        <div class="caution_img">
+                            <div><img src="img/caution_img01.png" alt="주의1"></div>
+                            <p>휴대전화 통화를 삼가시기 바랍니다.</p>
+                        </div>
+                        <div class="caution_img">
+                            <div><img src="img/caution_img02.png" alt="주의2"></div>
+                            <p>음료수, 과자 등 음식물은 전시실내에서 드실 수 없습니다.</p>
+                        </div>
+                        <div class="caution_img">
+                            <div><img src="img/caution_img03.png" alt="주의3"></div>
+                            <p>떠들거나 뛰어다니는 행위를 삼가시기 바랍니다.</p>
+                        </div>
+                        <div class="caution_img">
+                            <div><img src="img/caution_img04.png" alt="주의4"></div>
+                            <p>플래시/삼각대 등을 이용한 촬영과 상업적 용도를 위한 촬영은 금지되어 있습니다.</p>
+                        </div>
+                        <div class="caution_img">
+                            <div><img src="img/caution_img05.png" alt="주의5"></div>
+                            <p>어린이를 동반하시는 분은 전시실 관람예절을 지도하시기 바랍니다.</p>
+                        </div>
+                        <div class="caution_img">
+                            <div><img src="img/caution_img06.png" alt="주의6"></div>
+                            <p>반려동물과 동반 입장을 삼가시기 바랍니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer id="footer">
+            <div class="top_footer">
+                <div class="inner">
+                    <h3>관련기관</h3>
+                    <ul class="museum">
+                        <li><a href="http://buyeo.museum.go.kr">국립부여박물관</a></li>
+                        <li><a href="https://iksan.museum.go.kr">국립익산박물관</a></li>
+                        <li><a href="https://jeonju.museum.go.kr">국립전주박물관</a></li>
+                        <li><a href="http://gwangju.museum.go.kr">국립광주박물관</a></li>
+                        <li><a href="http://naju.museum.go.kr">국립나주박물관</a></li>
+                        <li><a href="http://cheongju.museum.go.kr">국립청주박물관</a></li>
+                        <li><a href="http://chuncheon.museum.go.kr">국립춘천박물관</a></li>
+                        <li><a href="http://jinju.museum.go.kr">국립진주박물관</a></li>
+                        <!-- :after으로 clear:both -->
+                    </ul>
+                    <!-- :after으로 clear:both -->
+                </div>
+            </div>
+            <div class="bottom_footer">
+                <div class="inner">
+                    <div class="f_logo"><a href="index.html"><img src="img/f_logo.png" alt="푸터로고"></a>
+                    </div>
+                    <div class="copyright">
+                       <ul>
+                            <li><a href="sub01.html">수장고 안내</a></li>
+                            <li><a href="sub01.html">정보공개</a></li>
+                            <li><a href="sub01.html">개인정보처리방침</a></li>
+                            <li><a href="sub01.html">저작권정책</a></li>
+                            <li><a href="sub01.html">이메일집단수집거부</a></li>
+                            <li><a href="sub01.html">영상정보처리기기 운영관리방침</a></li>
+                            <!-- :after으로 clear:both -->
+                        </ul>
+                        <p class="address">[32535] 충청남도 공주시 관광단지길 34 (웅진동 360번지) Tel. 041-850-6300</p>
+                        <p class="copy">COPYRIGHT(c) GONGJU NATIONAL MUSEUM. ALL RIGHTS RESERVED.</p>
+                    </div>
+                    <div class="walogo"><img src="img/walogo.jpg" alt="과학기술정보통신부"></div>
+                    <!-- :after으로 clear:both -->
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
